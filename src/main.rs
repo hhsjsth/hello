@@ -1,5 +1,5 @@
 fn main() {
-   let v = (let x = 3);
+    let v = ();
 
-   assert!(v == ());
+    assert!(v == ());
 }
