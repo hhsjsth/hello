@@ -1,8 +1,10 @@
+// 修复错误
 fn main() {
-    let t = (String::from("hello"), String::from("world"));
+    let mut s = String::from("hello, ");
 
-    let _s = t.0;
+    push_str(&mut s)
+}
 
-    // 仅修改下面这行代码，且不要使用 `_s`
-    println!("{:?}", t.1);
+fn push_str(s: &mut String) {
+    s.push_str("world")
 }
