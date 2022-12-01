@@ -1,10 +1,8 @@
-// 修复错误
 fn main() {
-    let mut s = String::from("hello, ");
-
-    push_str(&mut s)
+    let my_name = "Pascal";
+    greet(my_name.to_string());
 }
 
-fn push_str(s: &mut String) {
-    s.push_str("world")
+fn greet(name: String) {
+    println!("Hello, {}!", name);
 }
