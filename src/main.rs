@@ -1,8 +1,12 @@
 fn main() {
-    let my_name = "Pascal";
-    greet(my_name.to_string());
-}
+    let mut s = String::from("hello world");
 
-fn greet(name: String) {
-    println!("Hello, {}!", name);
+    s.clear(); // error!
+
+    let word = first_word(&s);
+
+    println!("the first word is: {}", word);
+}
+fn first_word(s: &String) -> &str {
+    &s[..1]
 }
