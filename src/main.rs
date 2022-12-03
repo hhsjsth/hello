@@ -4,7 +4,6 @@ fn main() {
     s.clear(); // error!
 
     let word = first_word(&s);
-
     println!("the first word is: {}", word);
 }
 fn first_word(s: &String) -> &str {
