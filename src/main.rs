@@ -1,11 +1,5 @@
 fn main() {
-    let mut s = String::from("hello world");
-
-    s.clear(); // error!
-
-    let word = first_word(&s);
-    println!("the first word is: {}", word);
-}
-fn first_word(s: &String) -> &str {
-    &s[..1]
+    let mut string_replace_range = String::from("I like rust!");
+    string_replace_range.replace_range(7..8, "R");
+    dbg!(string_replace_range);
 }
