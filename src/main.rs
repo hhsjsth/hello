@@ -1,5 +1,10 @@
 fn main() {
-    let mut string_replace_range = String::from("I like rust!");
-    string_replace_range.replace_range(7..8, "R");
-    dbg!(string_replace_range);
+    let string_append = String::from("hello ");
+    let string_rust = String::from("rust");
+    // &string_rust会自动解引用为&str
+    let result = string_append + &string_rust;
+    let mut result = result + "!";
+    result += "!!!";
+
+    println!("连接字符串 + -> {}", result);
 }
