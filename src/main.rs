@@ -1,9 +1,9 @@
-// 使用至少两种方法来修复错误
+// 修复所有错误，并且不要新增代码行
 fn main() {
-    let s: Box<str> = "hello, world".into();
-    greetings(&s);
-}
+    let mut s = String::from("hello");
+    s.push(',');
+    s.push_str(" world");
+    s += "!";
 
-fn greetings(s: &str) {
     println!("{}", s)
 }
