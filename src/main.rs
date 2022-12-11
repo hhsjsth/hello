@@ -1,8 +1,10 @@
-// 修复所有错误，不要删除任何一行代码
 fn main() {
-    let s1 = String::from("hello,");
-    let s2 = String::from("world!");
-    let s3 = s1.clone() + &s2;
-    assert_eq!(s3, "hello,world!");
-    println!("{}", s1);
+    let string_append = String::from("hello ");
+    let string_rust = String::from("rust");
+    // &string_rust会自动解引用为&str
+    let result = string_append + &string_rust;
+    let mut result = result + "!";
+    result += "!!!";
+
+    println!("连接字符串 + -> {}", result);
 }
