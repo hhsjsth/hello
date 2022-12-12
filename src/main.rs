@@ -1,9 +1,24 @@
+use std::mem;
+
 fn main() {
-    let arr: [char; 3] = ['中', '国', '人'];
+    let story = String::from("Rust By Practice");
 
-    let slice = &arr[..2];
+    // Prevent automatically dropping the String's data
+    let mut story = mem::ManuallyDrop::new(story);
 
-    // 修改数字 `8` 让代码工作
-    // 小提示: 切片和数组不一样，它是引用。如果是数组的话，那下面的 `assert!` 将会通过： '中'和'国'是char类型，char类型是Unicode编码，大小固定为4字节，两个字符为8字节。
-    assert!(std::mem::size_of_val(&slice) == 16);
+    let ptr = story.as_mut_ptr();
+    let len = story.len();
+    let capacity = story.capacity();
+
+    // story has nineteen bytes
+    assert_eq!(16, len);
+
+    // We can re-build a String out of ptr, len, and capacity. This is all
+    // unsafe because we are responsible for making sure the components are
+    // valid:
+    let s = unsafe { String::from_raw_parts(ptr, len, capacity) };
+
+    assert_eq!(*story, s);
+
+    println!("Success!")
 }
