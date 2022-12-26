@@ -9,6 +9,12 @@ fn main() {
     let ptr = story.as_mut_ptr();
     let len = story.len();
     let capacity = story.capacity();
+    struct User {
+        active: bool,
+        username: String,
+        email: String,
+        sign_in_count: u64,
+    }
 
     // story has nineteen bytes
     assert_eq!(16, len);
