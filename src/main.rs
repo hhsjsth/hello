@@ -1,17 +1,19 @@
-// 修复错误
-#[derive(Debug)]
-struct File {
-    name: String,
-    data: String,
-}
 fn main() {
-    let f = File {
-        name: String::from("readme.md"),
-        data: "Rust By Practice".to_string(),
-    };
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
 
-    let ref _name = &f.name;
+    if let Some(n) = six {
+        println!("{}", n);
+        return;
+    }
 
-    // 只能修改这一行
-    println!("{}, {}, {:?}", f.name, f.data, f);
+    panic!("NEVER LET THIS RUN！");
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
 }
