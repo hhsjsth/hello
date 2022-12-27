@@ -1,30 +1,15 @@
-use std::mem;
+struct User {
+    username: &str,
+    email: &str,
+    sign_in_count: u64,
+    active: bool,
+}
 
 fn main() {
-    let story = String::from("Rust By Practice");
-
-    // Prevent automatically dropping the String's data
-    let mut story = mem::ManuallyDrop::new(story);
-
-    let ptr = story.as_mut_ptr();
-    let len = story.len();
-    let capacity = story.capacity();
-    struct User {
-        active: bool,
-        username: String,
-        email: String,
-        sign_in_count: u64,
-    }
-
-    // story has nineteen bytes
-    assert_eq!(16, len);
-
-    // We can re-build a String out of ptr, len, and capacity. This is all
-    // unsafe because we are responsible for making sure the components are
-    // valid:
-    let s = unsafe { String::from_raw_parts(ptr, len, capacity) };
-
-    assert_eq!(*story, s);
-
-    println!("Success!")
+    let user1 = User {
+        email: "someone@example.com",
+        username: "someusername123",
+        active: true,
+        sign_in_count: 1,
+    };
 }
