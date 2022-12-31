@@ -1,8 +1,12 @@
-#![allow(unused)]
-fn main() {
-    let foo = 'f';
-    assert!(matches!(foo, 'A'..='Z' | 'a'..='z'));
+enum MyEnum {
+    Foo,
+    Bar,
+}
 
-    let bar = Some(4);
-    assert!(matches!(bar, Some(x) if x > 2));
+fn main() {
+    let v = vec![MyEnum::Foo, MyEnum::Bar, MyEnum::Foo];
+
+    v.iter().filter(|x| x == MyEnum::Foo); // 编译错误
+
+    v.iter().filter(|x| matches!(x, MyEnum::Foo)); // 通过编译
 }
