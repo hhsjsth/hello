@@ -1,49 +1,78 @@
-#![allow(dead_code)]
+// 填空
+fn example1() {
+    // `T: Trait` 是最常使用的方式
+    // `T: Fn(u32) -> u32` 说明 `T` 只能接收闭包类型的参数
+    struct Cacher<T: Fn(u32) -> u32> {
+        calculation: T,
+        value: Option<u32>,
+    }
 
-use std::fmt;
-use std::fmt::Display;
+    impl<T: Fn(u32) -> u32> Cacher<T> {
+        fn new(calculation: T) -> Cacher<T> {
+            Cacher {
+                calculation,
+                value: None,
+            }
+        }
 
-#[derive(Debug, PartialEq)]
-enum FileState {
-    Open,
-    Closed,
-}
-
-#[derive(Debug)]
-struct File {
-    name: String,
-    data: Vec<u8>,
-    state: FileState,
-}
-
-impl Display for FileState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            FileState::Open => write!(f, "OPEN"),
-            FileState::Closed => write!(f, "CLOSED"),
+        fn value(&mut self, arg: u32) -> u32 {
+            match self.value {
+                Some(v) => v,
+                None => {
+                    let v = (self.calculation)(arg);
+                    self.value = Some(v);
+                    v
+                }
+            }
         }
     }
+
+    let mut cacher = Cacher::new(|x| x + 1);
+    assert_eq!(cacher.value(10), 10);
+    assert_eq!(cacher.value(15), 15);
 }
 
-impl Display for File {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "<{} ({})>", self.name, self.state)
+fn example2() {
+    // 还可以使用 `where` 来约束 T
+    struct Cacher<T>
+    where
+        T: Fn(u32) -> u32,
+    {
+        calculation: T,
+        value: Option<u32>,
     }
-}
 
-impl File {
-    fn new(name: &str) -> File {
-        File {
-            name: String::from(name),
-            data: Vec::new(),
-            state: FileState::Closed,
+    impl<T> Cacher<T>
+    where
+        T: Fn(u32) -> u32,
+    {
+        fn new(calculation: T) -> Cacher<T> {
+            Cacher {
+                calculation,
+                value: None,
+            }
+        }
+
+        fn value(&mut self, arg: u32) -> u32 {
+            match self.value {
+                Some(v) => v,
+                None => {
+                    let v = (self.calculation)(arg);
+                    self.value = Some(v);
+                    v
+                }
+            }
         }
     }
+
+    let mut cacher = Cacher::new(|x| x + 1);
+    assert_eq!(cacher.value(20), 20);
+    assert_eq!(cacher.value(25), 25);
 }
 
 fn main() {
-    let f6 = File::new("f6.txt");
-    //...
-    println!("{:?}", f6);
-    println!("{}", f6);
+    example1();
+    example2();
+
+    println!("Success!")
 }
