@@ -1,38 +1,40 @@
-trait Foo {
-    fn method(&self) -> String;
+trait Bird {
+    fn quack(&self);
 }
 
-impl Foo for u8 {
-    fn method(&self) -> String {
-        format!("u8: {}", *self)
+struct Duck;
+impl Duck {
+    fn fly(&self) {
+        println!("Look, the duck is flying")
+    }
+}
+struct Swan;
+impl Swan {
+    fn fly(&self) {
+        println!("Look, the duck.. oh sorry, the swan is flying")
     }
 }
 
-impl Foo for String {
-    fn method(&self) -> String {
-        format!("string: {}", *self)
+impl Bird for Duck {
+    fn quack(&self) {
+        println!("{}", "duck duck");
     }
 }
 
-// 通过泛型实现以下函数
-fn static_dispatch<T>(x: T)
-where
-    T: Foo,
-{
-    x.method();
-}
-
-// 通过特征对象实现以下函数
-fn dynamic_dispatch(x: &dyn Foo) {
-    x.method();
+impl Bird for Swan {
+    fn quack(&self) {
+        println!("{}", "swan swan");
+    }
 }
 
 fn main() {
-    let x = 5u8;
-    let y = "Hello".to_string();
+    // 填空
+    let birds: &[Box<dyn Bird>; 2] = &[Box::new(Duck), Box::new(Swan)];
 
-    static_dispatch(x);
-    dynamic_dispatch(&y);
-
-    println!("Success!")
+    for bird in birds {
+        bird.quack();
+        // 当 duck 和 swan 变成 bird 后，它们都忘了如何翱翔于天际，只记得该怎么叫唤了。。
+        // 因此，以下代码会报错
+        // bird.fly();
+    }
 }
