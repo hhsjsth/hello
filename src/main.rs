@@ -1,60 +1,38 @@
-pub trait Draw {
-    fn draw(&self);
+trait Foo {
+    fn method(&self) -> String;
 }
 
-pub struct Button {
-    pub width: u32,
-    pub height: u32,
-    pub label: String,
-}
-
-impl Draw for Button {
-    fn draw(&self) {
-        // 绘制按钮的代码
+impl Foo for u8 {
+    fn method(&self) -> String {
+        format!("u8: {}", *self)
     }
 }
 
-struct SelectBox {
-    width: u32,
-    height: u32,
-    options: Vec<String>,
-}
-
-impl Draw for SelectBox {
-    fn draw(&self) {}
-}
-
-pub struct Screen {
-    pub components: Vec<Box<dyn Draw>>,
-}
-
-impl Screen {
-    pub fn run(&self) {
-        for component in self.components.iter() {
-            component.draw();
-        }
+impl Foo for String {
+    fn method(&self) -> String {
+        format!("string: {}", *self)
     }
+}
+
+// 通过泛型实现以下函数
+fn static_dispatch<T>(x: T)
+where
+    T: Foo,
+{
+    x.method();
+}
+
+// 通过特征对象实现以下函数
+fn dynamic_dispatch(x: &dyn Foo) {
+    x.method();
 }
 
 fn main() {
-    let screen = Screen {
-        components: vec![
-            Box::new(SelectBox {
-                width: 75,
-                height: 10,
-                options: vec![
-                    String::from("Yes"),
-                    String::from("Maybe"),
-                    String::from("No"),
-                ],
-            }),
-            Box::new(Button {
-                width: 50,
-                height: 10,
-                label: String::from("OK"),
-            }),
-        ],
-    };
+    let x = 5u8;
+    let y = "Hello".to_string();
 
-    screen.run();
+    static_dispatch(x);
+    dynamic_dispatch(&y);
+
+    println!("Success!")
 }
