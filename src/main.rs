@@ -1,15 +1,19 @@
-use std::fmt;
+#[derive(Debug)]
+enum IpAddr {
+    V4(String),
+    V6(String),
+}
+fn main() {
+    let v = vec![
+        IpAddr::V4("127.0.0.1".to_string()),
+        IpAddr::V6("::1".to_string()),
+    ];
 
-// 定义一个 newtype `Pretty`
-struct Pretty(String);
-
-impl fmt::Display for Pretty {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "\"{}\"", self.0.clone() + ", world")
+    for ip in v {
+        show_addr(ip)
     }
 }
 
-fn main() {
-    let w = Pretty("hello".to_string());
-    println!("w = {}", w);
+fn show_addr(ip: IpAddr) {
+    println!("{:?}", ip);
 }
