@@ -1,11 +1,13 @@
-// 为了使用 `from_str` 方法, 你需要引入该特征到当前作用域中
-use std::str::FromStr;
+#![allow(unused)]
 fn main() {
-    let parsed: i32 = "5".parse().unwrap();
-    let turbo_parsed = "10"..unwrap();
-    let from_str = __.unwrap();
-    let sum = parsed + turbo_parsed + from_str;
-    assert_eq!(sum, 35);
+    use std::fs::File;
+    use std::io;
+    use std::io::Read;
 
-    println!("Success!")
+    fn read_username_from_file() -> Result<String, io::Error> {
+        let mut f = File::open("hello.txt")?;
+        let mut s = String::new();
+        f.read_to_string(&mut s)?;
+        Ok(s)
+    }
 }
