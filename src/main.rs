@@ -1,6 +1,8 @@
-#![allow(unused)]
+use crate::garden::vegetables::Asparagus;
+
+pub mod garden;
+
 fn main() {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-    }
+    let plant = Asparagus {};
+    println!("I'm growing {:?}!", plant);
 }
