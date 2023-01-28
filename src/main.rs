@@ -6,4 +6,5 @@ fn main() {
     let plant = Asparagus {};
     println!("I'm growing {:?}!", plant);
     let i: String = 0.0;
+    let i: String = 0.0;
 }
