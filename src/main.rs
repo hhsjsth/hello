@@ -1,11 +1,33 @@
-use crate::garden::vegetables::Asparagus;
+/**
+ * 你好
+ * 我是
+ * Rust
+ * 语言
+ */
+mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
 
-pub mod garden;
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+    }
+}
 
-fn main() {
-    let plant = Asparagus {};
-    println!("I'm growing {:?}!", plant);
-    let i: String = "asdfasdf".to_string();
-    let ii: String = String::new("asdfasdf");
-    let ii: String = String;
+pub fn eat_at_restaurant() {
+    // Order a breakfast in the summer with Rye toast
+    let mut meal = back_of_house::Breakfast::summer("Rye");
+    // Change our mind about what bread we'd like
+    meal.toast = String::from("Wheat");
+    println!("I'd like {} toast please", meal.toast);
+
+    // The next line won't compile if we uncomment it; we're not allowed
+    // to see or modify the seasonal fruit that comes with the meal
+    // meal.seasonal_fruit = String::from("blueberries");
 }
