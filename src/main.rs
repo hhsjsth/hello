@@ -1,18 +1,15 @@
-use std::fmt;
+fn main() {
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
 
-struct Wrapper(Vec<String>);
-
-impl fmt::Display for Wrapper {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "[{}]", self.0.join(", "))
-    }
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
 }
 
-fn main() {
-    let w = Wrapper(vec![
-        String::from("hello"),
-        String::from("world"),
-        String::from("value"),
-    ]);
-    println!("w = {}", w);
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
