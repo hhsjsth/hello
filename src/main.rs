@@ -1,12 +1,16 @@
-/* 添加合适的生命周期标注，让下面的代码工作 */
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() {
-        x
-    } else {
-        y
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+impl Point<i32> {
+    fn x(&self) -> &i32 {
+        &self.x
     }
 }
 
 fn main() {
-    println!("{}", longest("str", "strstr"));
+    let p = Point { x: 5, y: 10 };
+
+    println!("p.x = {}", p.x());
 }
